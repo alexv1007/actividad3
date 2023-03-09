@@ -1,0 +1,189 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.0
+-- https://www.phpmyadmin.net/
+--
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 09-03-2023 a las 23:16:48
+-- Versión del servidor: 10.4.27-MariaDB
+-- Versión de PHP: 8.1.12
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Base de datos: `proyectoone`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `estatus`
+--
+
+CREATE TABLE `estatus` (
+  `id_estatus` int(11) NOT NULL,
+  `EstatusE` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `materiales`
+--
+
+CREATE TABLE `materiales` (
+  `id_material` int(11) NOT NULL,
+  `NombreM` varchar(55) NOT NULL,
+  `Descripcion` text NOT NULL,
+  `Fechaalta` date NOT NULL,
+  `Cantidad` int(11) NOT NULL,
+  `Umedida` varchar(55) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `solicitudmateriales`
+--
+
+CREATE TABLE `solicitudmateriales` (
+  `id_solicitudmateriales` int(11) NOT NULL,
+  `id_material` int(11) NOT NULL,
+  `id_carrera` int(11) NOT NULL,
+  `id_usuario` int(11) NOT NULL,
+  `id_plantel` int(11) NOT NULL,
+  `id_estatus` int(11) NOT NULL,
+  `fecha_solicitud` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tusuario`
+--
+
+CREATE TABLE `tusuario` (
+  `id_Tusuario` int(11) NOT NULL,
+  `NombreT` varchar(55) NOT NULL,
+  `DescripcionT` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `usuario`
+--
+
+CREATE TABLE `usuario` (
+  `id_usuario` int(11) NOT NULL,
+  `Nombre` varchar(55) NOT NULL,
+  `ApellidoP` varchar(55) NOT NULL,
+  `ApellidoM` varchar(55) NOT NULL,
+  `id_Tusuario` int(11) NOT NULL,
+  `username` varchar(5) NOT NULL,
+  `Password` varchar(55) NOT NULL,
+  `Email` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `usuario`
+--
+
+INSERT INTO `usuario` (`id_usuario`, `Nombre`, `ApellidoP`, `ApellidoM`, `id_Tusuario`, `username`, `Password`, `Email`) VALUES
+(1, 'javier', 'flores', 'millan', 1, 'jafi', '12345', 'jafi@hotmail.com'),
+(2, 'adolfo', 'juarez', 'rivera', 2, 'aldo', '13245', 'aldo@hotmail.com'),
+(3, 'ricardo', 'bolivar', 'alvarez', 3, 'rich', '43678', 'rich@hotmail.com'),
+(4, 'sofia', 'casas', 'garcia', 2, 'sofy', '66543', 'sofi@hotmail.com'),
+(5, 'juan', 'duran', 'liera', 3, 'juanc', '221334', 'juai@hotmail.com'),
+(6, 'maria', 'perez', 'soriano', 3, 'mery', '12113', 'mery@hotmail.com'),
+(7, 'alexia', 'alcantar', 'ramos', 2, 'ale', '634592', 'ali@hotmail.com'),
+(8, 'laura', 'valle', 'rios', 2, 'lessy', '77545', 'lessy@hotmail.com'),
+(9, 'misael', 'robles', 'almenar', 1, 'mich', '33224', 'mich@hotmail.com'),
+(10, 'isabel', 'cruz', 'villa', 1, 'isa', '656543', 'isa@hotmail.com');
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `estatus`
+--
+ALTER TABLE `estatus`
+  ADD PRIMARY KEY (`id_estatus`);
+
+--
+-- Indices de la tabla `materiales`
+--
+ALTER TABLE `materiales`
+  ADD PRIMARY KEY (`id_material`),
+  ADD KEY `Umedida` (`Umedida`);
+
+--
+-- Indices de la tabla `solicitudmateriales`
+--
+ALTER TABLE `solicitudmateriales`
+  ADD PRIMARY KEY (`id_solicitudmateriales`),
+  ADD KEY `id_material` (`id_material`),
+  ADD KEY `id_carrera` (`id_carrera`),
+  ADD KEY `id_usuario` (`id_usuario`),
+  ADD KEY `id_plantel` (`id_plantel`),
+  ADD KEY `id_estatus` (`id_estatus`);
+
+--
+-- Indices de la tabla `tusuario`
+--
+ALTER TABLE `tusuario`
+  ADD PRIMARY KEY (`id_Tusuario`);
+
+--
+-- Indices de la tabla `usuario`
+--
+ALTER TABLE `usuario`
+  ADD PRIMARY KEY (`id_usuario`),
+  ADD KEY `id_usuario` (`id_usuario`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `estatus`
+--
+ALTER TABLE `estatus`
+  MODIFY `id_estatus` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `materiales`
+--
+ALTER TABLE `materiales`
+  MODIFY `id_material` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `solicitudmateriales`
+--
+ALTER TABLE `solicitudmateriales`
+  MODIFY `id_solicitudmateriales` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `tusuario`
+--
+ALTER TABLE `tusuario`
+  MODIFY `id_Tusuario` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `usuario`
+--
+ALTER TABLE `usuario`
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
